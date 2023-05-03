@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import EmailSender from "./SendEmail.js";
 import SubscribeEmailSender from "./SubscribeEmail.js";
+import ContactEmailSender from "./Contact.js";
 
 dotenv.config();
 const app = express();
@@ -26,6 +27,36 @@ app.post("/subscribe", async (req, res) => {
     const { email } = req.body;
     SubscribeEmailSender({ email });
     res.json({ msg: "You have successfully subscribed ✅" });
+  } catch (error) {
+    res.status(404).json({ msg: "Error ❌" });
+  }
+});
+
+app.post("/contact", async (req, res) => {
+  try {
+    const {
+      firstName,
+      lastName,
+      email,
+      contactNumber,
+      companyWebsite,
+      companyName,
+      message,
+      engagementModels,
+      foundUs,
+    } = req.body;
+    ContactEmailSender({
+      firstName,
+      lastName,
+      email,
+      contactNumber,
+      companyWebsite,
+      companyName,
+      message,
+      engagementModels,
+      foundUs,
+    });
+    res.json({ msg: "Your message has been sent successfully ✅" });
   } catch (error) {
     res.status(404).json({ msg: "Error ❌" });
   }
