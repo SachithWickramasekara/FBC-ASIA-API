@@ -11,7 +11,7 @@ const Price = (options) => {
     transporter.sendMail(options, (err, info) => {
         if (err) {
             console.log(err);
-            return;
+            return
         }
     }
     );
